@@ -28,7 +28,7 @@ module.exports = function(RED) {
                 var rec =   buffer.length; 
                 var source = source;
                 var recmsg 
-                console.log('received' )
+                console.log('received' + Math.floor(new Date() / 1000) )
                 switch(this.messagetype){
                     case 'string':
                         recmsg = buffer.toString('utf8')
