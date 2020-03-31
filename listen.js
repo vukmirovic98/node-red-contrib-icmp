@@ -28,7 +28,7 @@ module.exports = function(RED) {
                 var rec =   buffer.length; 
                 var source = source;
                 var recmsg 
-                
+                console.log('received' )
                 switch(this.messagetype){
                     case 'string':
                         recmsg = buffer.toString('utf8')
@@ -42,7 +42,7 @@ module.exports = function(RED) {
                         break;
                    
                     }
-                    
+                    console.log('received' )
                 msg = {
                     icmp : {
                     received: rec,

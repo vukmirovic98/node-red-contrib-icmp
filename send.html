@@ -19,7 +19,8 @@
         color: '#a6bbcf',
         defaults: {
             name: {value:""},
-            timeout:{value: 5000, require: true}
+            timeout:{value: 5000, require: true},
+            address:{value: "127.0.0.1"}
 
         },
         inputs:1,
@@ -39,9 +40,14 @@
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
+    <div class="form-row address-row">
+        <label style="padding-top: 8px" for="node-input-regionList"><i class="fa fa-list-ol"></i> Address:</label>
+        <input type="text" id="node-input-address" style="width:60%">
+        <input type="hidden" id="node-input-address">
+    </div>
     </script>
 
-    <script type="text/html" data-help-name="COVID-19">
+    <script type="text/html" data-help-name="icmp send">
         <p> Node for simple<strong> ICMP </strong>connections</p>
 
         <p> Please use msg.address to pass the address to send the packet (can be an ip address or a domain)
@@ -58,7 +64,7 @@
                 <li><i><strong>ipv:</strong></i> ip version  </i></li>
                 <li><i><strong>type:</strong></i> Can be Received or Sent!</i></li>
                 
-            </ul></p>
+            </ul></ol>
            
 
     </script>

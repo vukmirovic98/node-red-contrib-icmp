@@ -19,17 +19,16 @@ module.exports = function(RED) {
         const dnslook = require('dns-lookup');
         RED.nodes.createNode(this,config);
         var node=this;
-       
+        var finaladd;
         var sadd = config.address;
-
+       
         
 
         node.on("input", function(msg, send, done) {
-          
-        
-        
             var iadd = msg.address;
-            var finaladd;
+
+         
+           
             node.status({fill:"blue",shape:"dot",text:"Sending"});
             if (iadd === '' & sadd === '' ){
                 node.status({fill:"red",shape:"dot",text:"Address not provided!"});
@@ -38,12 +37,14 @@ module.exports = function(RED) {
             }
           
             else  {
-                if (iadd != ''){
-                    finaladd= iadd
+                if (iadd != undefined){
+                    finaladd= iadd;
+                    
                 }
-                else if (sadd != ''){
+                else if (sadd != undefined){
                     finaladd = sadd;
                 }
+                
                 dnslook(finaladd, function (err ,add , family){ 
                     
                     if (err != null){
@@ -71,52 +72,6 @@ module.exports = function(RED) {
                          
                         
                     }
- 
- 
-                })
-            }
-
-
-
-            node.status({});
-        })
-            
-        
-        
-
-    }
-        RED.nodes.registerType("icmp send",icmp_send);
-}
-                    
-                    if (err != null){
-       
-                        node.status({fill:"red",shape:"dot",text:"null!"});
-                        node.error("Could not resolve domain:" + err)
-                        if (done) {
-                            done();
-                        }
-
-                        node.status({});
-                    } else { 
-                        icmp.send(add , msg.topic)
-                        .then(obj =>
-                            node.status({fill:"green",shape:"dot",text:"Sent!"}),
-                            RED.util.setMessageProperty(msg,'icmp.address', add, true),
-                            RED.util.setMessageProperty(msg,'icmp.message', msg.topic, true),
-                            RED.util.setMessageProperty(msg,'icmp.timestamp', Math.floor(new Date() / 1000), true),
-                            RED.util.setMessageProperty(msg,'icmp.ipv', family, true),
-                            RED.util.setMessageProperty(msg,'icmp.type', 'Sent!', true),
-                         
-                            node.send(msg),
-                            done()
-                            );
-                         
-                        
-                    }
-                    if (done) {
-                        done();
-                    }
-                    
  
  
                 })
