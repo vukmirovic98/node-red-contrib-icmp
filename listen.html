@@ -1,0 +1,62 @@
+/**
+ * Copyright 2020 Nemanja Vukmirovic
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ **/
+ <script type="text/javascript">
+    RED.nodes.registerType('icmp listen',{
+        category: 'network',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            messagetype: {value:"stream",require: true}
+
+        },
+        inputs:0,
+        outputs:1,
+        icon: "bridge-dash.png",
+        label: function() {
+            return this.name||"icmp listen";
+        },
+        oneditprepare: function(){
+
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="icmp listen">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-messagetype"><i class="icon-tag"></i> Settings:</label>
+        <select id="node-input-messagetype">
+            <option value="stream">Stream of buffer</option>
+            <option value="string">String</option>
+            <option value="base">Base64 String</option>
+          </select>
+    </div>
+    <h3><strong>Output</strong></h3>
+            <p> All of the objects are inside msg.icmp
+            </p>
+            <ol class="node-ports">
+            <ul>
+                <li><i><strong>address:</strong></i>address where the packet is sent (always will be returned as ip address). </li>
+                <li><i><strong>message:</strong></i>message that is sent!.</li>
+                <li><i><strong>timestamp:</strong></i> Time when the message is sent..</i></li>
+                <li><i><strong>type:</strong></i> Can be Received or Sent!</i></li>
+                
+            </ul></p>
+</script>
