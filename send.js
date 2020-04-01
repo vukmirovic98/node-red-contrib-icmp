@@ -62,12 +62,13 @@ module.exports = function(RED) {
                             node.status({fill:"green",shape:"dot",text:"Sent!"}),
                             RED.util.setMessageProperty(msg,'icmp.address', add, true),
                             RED.util.setMessageProperty(msg,'icmp.message', msg.topic, true),
-                            RED.util.setMessageProperty(msg,'icmp.timestamp', Math.floor(new Date() / 1000), true),
+                            RED.util.setMessageProperty(msg,'icmp.timestamp', Math.floor(new Date() ), true),
                             RED.util.setMessageProperty(msg,'icmp.ipv', family, true),
                             RED.util.setMessageProperty(msg,'icmp.type', 'Sent!', true),
                          
                             node.send(msg),
-                            done()
+                            done(),
+                            icmp.close
                             );
                          
                         
@@ -84,7 +85,7 @@ module.exports = function(RED) {
             
         
         
-
+        icmp.close
     }
         RED.nodes.registerType("icmp send",icmp_send);
 }

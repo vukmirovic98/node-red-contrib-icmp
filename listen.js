@@ -21,17 +21,19 @@ module.exports = function(RED) {
         this.messagetype = config.messagetype;
         var msg;
         node.status({fill:"blue",shape:"dot",text:"Listening"});
+        var a = true;
 
-        
             icmp.listen((buffer, source) => {
 
                 var rec =   buffer.length; 
                 var source = source;
                 var recmsg 
-                console.log('received' + Math.floor(new Date() / 1000) )
+           
                 switch(this.messagetype){
                     case 'string':
-                        recmsg = buffer.toString('utf8')
+                        
+                        var b = buffer.slice(28,buffer.length)
+                        recmsg =  b.toString('utf8' ) 
                         break;
                     case 'base':
                        
@@ -42,20 +44,30 @@ module.exports = function(RED) {
                         break;
                    
                     }
-                    console.log('received' )
-                msg = {
+                   
+                msg = 
+                {
+                    payload : recmsg,
                     icmp : {
                     received: rec,
                     source: source,
-                    time: Math.floor(new Date() / 1000) ,
+                    time: Math.floor(new Date() ) ,
                     message: recmsg,
                     type: 'Received!'
                 }}
             node.send(msg) 
+
             node.status({fill:"green",shape:"ring",text:"Received:" + source });
-
+            
         });
-
+    
+   
+    
+     
+        node.on('close', function() {
+            icmp.close
+        });
+    
 
     }
         RED.nodes.registerType("icmp listen",icmp_listen);
