@@ -58,7 +58,7 @@ module.exports = function(RED) {
             node.send(msg) 
 
             node.status({fill:"green",shape:"ring",text:"Received:" + source });
-            
+                        icmp.close
         });
     
    
