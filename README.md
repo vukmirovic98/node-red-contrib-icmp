@@ -13,8 +13,11 @@ Node for listening of the icmp packets
 ```
 ### icmp send:
 Node for sending icmp message
+
 msg.address will override the Address field in the node setting! 
-msg.topic can contain a message to send to the address
+
+msg.payload can contain a message to send to the address
+
 Address or msg.address can be a domain!
 ```
   msg.icmp.address: outputs the address that was sent to.
@@ -28,6 +31,7 @@ Address or msg.address can be a domain!
 While testing i noticed a behaviour that i completly forgot that could happen.
 
 When i ping localhost , the listen nodes receives two pings back with completly same output.
+
 I belive because the second message is the response that device sends back to the ping.```Needs option to pass only one message.```
 ![](https://user-images.githubusercontent.com/53474043/78057721-7b062180-7387-11ea-9960-0a05d01dd4e6.png)
 
