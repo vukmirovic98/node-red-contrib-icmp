@@ -9,7 +9,7 @@ Node for listening of the icmp packets
   msg.icmp.source: outputs the address of the device that sent the packet
   msg.icmp.time: outputs the time the packet was received
   msg.icmp.message: outputs the message
-  msg.icmp.type: outputs the message 'Received!'
+  msg.icmp.received: outputs true
 ```
 ### icmp send:
 Node for sending icmp message
@@ -21,7 +21,7 @@ Address or msg.address can be a domain!
   msg.icmp.message: outputs the message that was sent.
   msg.icmp.time: outputs the time the packet was received
   msg.icmp.ipv: outputs the type of address that was sent to.
-  msg.icmp.type: outputs string 'Sent!'
+  msg.icmp.sent: outputs true
 ```
 
 ## Testing
@@ -33,6 +33,8 @@ I belive because the second message is the response that device sends back to th
 
 When pinging other device inside my network there is the expected response back.
 ![](https://user-images.githubusercontent.com/53474043/78054120-ddf4ba00-7381-11ea-9f12-0c1f118a0a79.png)
+
+
 
 # Contributing 
 Who wants to contribute to this project please check out the issues tab.
