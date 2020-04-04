@@ -4,6 +4,7 @@
   "description": "Internet Control Messaging Protocol nodes for network communication. ",
     "dependencies": {
       "icmp": "1.4.0",
+      "require-stack":"1.0.2"
       "dns-lookup": "0.1.0"
   },
   "keywords": [
