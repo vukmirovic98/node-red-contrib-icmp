@@ -14,61 +14,62 @@
  * limitations under the License.
  **/
 module.exports = function(RED) {
-    const icmp = require('icmp');
+    var icmp 
     function icmp_listen(config) {
         RED.nodes.createNode(this,config);
         var node=this;
+        var recmsg;
+        var source;
+        try {
+            sleep(2000)
+             icmp = require('icmp')
+            
+        }   
+        catch{
+            console.log('ICMP module failed to initiate!')
+            node.error('ICMP module failed to initiate!')
+        }
+        function sleep (time) { return new Promise((resolve) => setTimeout(resolve, time));}
         this.messagetype = config.messagetype;
-        var msg;
-        node.status({fill:"blue",shape:"dot",text:"Listening"});
-        var a = true;
-
+        
+        node.status({fill:"blue",shape:"ring",text:"Listening:" });
             icmp.listen((buffer, source) => {
-
-                var rec =   buffer.length; 
-                var source = source;
-                var recmsg 
-           
-                switch(this.messagetype){
-                    case 'string':
-                        
-                        var b = buffer.slice(28,buffer.length)
-                        recmsg =  b.toString('utf8' ) 
-                        break;
-                    case 'base':
-                       
-                        recmsg = buffer.toString('base64')
-                        break;
-                    case 'stream':
-                        recmsg = buffer
-                        break;
-                   
-                    }
-                   
-                msg = 
-                {
-                    payload : recmsg,
-                    icmp : {
-                    received: rec,
-                    source: source,
-                    time: Math.floor(new Date() ) ,
-                    message: recmsg,
-                    type: 'Received!'
+                
+                recmsg = buffer.length; 
+                source = source;
+             
+            switch(this.messagetype){
+                case 'string':
+                    var b = buffer.slice(28,buffer.length)
+                    recmsg =  b.toString('utf8' ) 
+                    break;
+                case 'base':
+                    recmsg = buffer.toString('base64')
+                    break;
+                case 'stream':
+                    recmsg = buffer
+                    break;
+                }
+      
+            msg = {
+                payload : recmsg,
+                icmp : {
+                received: recmsg,
+                source: source,
+                time: Math.floor(new Date() ) ,
+                message: recmsg,
+                received: true
                 }}
-            node.send(msg) 
-
+            node.send(msg);
             node.status({fill:"green",shape:"ring",text:"Received:" + source });
-                        icmp.close
-        });
-    
-   
-    
-     
+            sleep(5000)
+            node.status({fill:"blue",shape:"ring",text:"Listening:" });
+
+    })
         node.on('close', function() {
             icmp.close
-        });
-    
 
+        });
     }
         RED.nodes.registerType("icmp listen",icmp_listen);
 }

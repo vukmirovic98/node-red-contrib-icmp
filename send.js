@@ -22,12 +22,11 @@ module.exports = function(RED) {
         var finaladd;
         var sadd = config.address;
        
-        
+        function sleep (time) { return new Promise((resolve) => setTimeout(resolve, time));}
 
         node.on("input", function(msg, send, done) {
             var iadd = msg.address;
 
-         
            
             node.status({fill:"blue",shape:"dot",text:"Sending"});
             if (iadd === '' & sadd === '' ){
@@ -46,6 +45,7 @@ module.exports = function(RED) {
                 }
                 
                 dnslook(finaladd, function (err ,add , family){ 
+
                     
                     if (err != null){
        
@@ -57,17 +57,18 @@ module.exports = function(RED) {
 
                         node.status({});
                     } else { 
-                        icmp.send(add , msg.topic)
+                        icmp.send(add , msg.payload)
                         .then(obj =>
                             node.status({fill:"green",shape:"dot",text:"Sent!"}),
                             RED.util.setMessageProperty(msg,'icmp.address', add, true),
                             RED.util.setMessageProperty(msg,'icmp.message', msg.topic, true),
                             RED.util.setMessageProperty(msg,'icmp.timestamp', Math.floor(new Date() ), true),
                             RED.util.setMessageProperty(msg,'icmp.ipv', family, true),
-                            RED.util.setMessageProperty(msg,'icmp.type', 'Sent!', true),
-                         
+                            RED.util.setMessageProperty(msg,'icmp.sent', true, true),
+                            sleep(3000),
                             node.send(msg),
                             done(),
+                            node.status({}),
                             icmp.close
                             );
                          
