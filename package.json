@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-icmp",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Internet Control Messaging Protocol nodes for network communication. ",
     "dependencies": {
       "icmp": "1.4.0",
@@ -10,9 +10,16 @@
   "keywords": [
     "node-red",
     "icmp",
+    "listen",
+    "communication",
     "ping",
     "tcp"
   ],
+  "homepage": "https://github.com/vukmirovic98/node-red-contrib-icmp",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/vukmirovic98/node-red-contrib-icmp/.git"
+    },
   "author": "Nemanja Vukmirovic",
   "license": "Apache-2.0",
   
